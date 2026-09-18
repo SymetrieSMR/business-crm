@@ -1,7 +1,12 @@
-const CACHE_NAME = "biz-crm-cache-v1";
+const CACHE_NAME = "biz-crm-cache-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./v2-upgrade.js",
+  "./booking-addon.js",
+  "./service-addon.js",
+  "./book.html",
+  "./client-service.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"

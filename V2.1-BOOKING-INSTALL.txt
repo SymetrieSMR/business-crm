@@ -1,0 +1,53 @@
+BUSINESS CRM V2.1 — BOOKING & APPOINTMENTS
+==========================================
+
+FILES
+- booking-addon.js       Owner-side CRM Booking Inbox / Appointments add-on
+- book.html              Public Symétrie Interiors Inc. booking/request page
+- booking-endpoint.gs    Secure cross-device intake endpoint (Google Apps Script)
+
+WHAT THIS ADDS
+- Book/request an estimate
+- Request a callback
+- Request a video consultation (Google Meet / Microsoft Teams / Messenger)
+- CRM Booking Inbox with New / Contacted / Scheduled / Completed / Cancelled states
+- Appointment date/time, service, address, notes, video platform and meeting link
+- Google Calendar pre-filled event button
+- Public-request sync into the CRM using a private admin token
+
+INSTALL IN GITHUB
+1. Upload booking-addon.js and book.html to the root of the business-crm repository.
+2. In index.html, after the existing v2-upgrade.js script and before </body>, add:
+     <script src="booking-addon.js"></script>
+3. Commit the files.
+
+CONNECT PUBLIC REQUESTS
+1. Go to script.google.com and create a new Apps Script project.
+2. Paste booking-endpoint.gs into Code.gs.
+3. Run setupBookingBackend() once and authorize it.
+4. Copy the Admin token shown in the execution log. Keep it private.
+5. Deploy > New deployment > Web app.
+   Execute as: Me
+   Who has access: Anyone
+6. Copy the Web App URL.
+7. In book.html set:
+     const BOOKING_API_URL='YOUR_WEB_APP_URL';
+   Commit that change.
+8. In the CRM, open Booking setup and enter:
+   - the same Web App URL
+   - the private Admin token
+9. Use Sync public requests in the CRM.
+
+IMPORTANT SECURITY DESIGN
+- The admin token is NEVER placed in book.html.
+- The token is stored only in the owner's CRM browser.
+- The public page can submit a request but cannot read the Booking Inbox.
+
+GOOGLE MEET
+The current CRM button opens a pre-filled Google Calendar event. When using Google Calendar, a Meet link can be added to the event. A later server-side step can automate Meet creation after you approve a booking request.
+
+MICROSOFT TEAMS / MESSENGER
+The data model and client choice are already included. Full automatic Teams or Messenger meeting creation requires their respective account/API connection and can be added without changing the booking record format.
+
+BUSINESS IDENTITY
+This add-on does not create, redraw, replace, or approximate any company logo. It uses text-only Symétrie Interiors Inc. identity on the public booking page until the authentic approved logo asset is deliberately added.
